@@ -1,16 +1,13 @@
-// app/page.tsx
+// app/page.tsx (FINAL UPDATE)
 import Link from 'next/link';
-import { JobCard } from '@/app/components/JobCard';
-import { mockJobs } from '@/app/data/jobs';
+// Import the new client component
+import { HomeFeaturedJobs } from '@/app/components/HomeFeaturedJobs';
 
 export default function HomePage() {
-  // Get the first two jobs to feature on the homepage
-  const featuredJobs = mockJobs.slice(0, 2);
-
   return (
     <div className="min-h-screen bg-gray-50">
 
-      {/* 1. Hero Section: Main Call to Action */}
+      {/* 1. Hero Section: Main Call to Action (Remains the same) */}
       <section className="bg-white pt-20 pb-24 sm:pt-28 sm:pb-32 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
@@ -39,39 +36,24 @@ export default function HomePage() {
 
       {/* --- */}
 
-      {/* 2. Featured Jobs Section */}
+      {/* 2. Featured Jobs Section (Now uses the Client Component) */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Featured Gigs
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {featuredJobs.map((job) => (
-              <JobCard key={job.id} job={job} />
-            ))}
-          </div>
+          {/* Renders the combined, client-side list */}
+          <HomeFeaturedJobs />
 
-          <div className="text-center mt-12">
-            <Link href="/jobs" passHref>
-              <button className="px-8 py-3 border border-transparent text-base font-medium rounded-lg text-indigo-600 border-2 border-indigo-600 hover:bg-indigo-50 transition duration-150">
-                View All {mockJobs.length} Gigs
-              </button>
-            </Link>
-          </div>
         </div>
       </section>
 
       {/* --- */}
 
-      {/* 3. Footer Placeholder */}
-      <footer className="bg-gray-800 text-white py-10 mt-12">
-        <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <p className="text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} Sui Gigs DApp MVP. Built with Next.js and Tailwind CSS.
-          </p>
-        </div>
-      </footer>
+      {/* 3. Footer Placeholder (Footer is now in layout.tsx) */}
+      {/* The separate footer block is now removed as it's in layout.tsx */}
+
     </div>
   );
 }
