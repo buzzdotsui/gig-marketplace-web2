@@ -172,7 +172,7 @@ export default function PostJobPage() {
                         >
                             {isTxLoading ? 'Posting...' : 'Post Gig Now'}
                         </button>
-                        <p className='mt-3 text-center text-sm text-gray-500'>*In the full dApp, this action would secure the payment via a Sui transaction.</p>
+                        <p className='mt-3 text-center text-sm text-gray-500'>In the full dApp, this action would secure the payment via a Sui transaction.</p>
                     </div>
                 </form>
             </div>
