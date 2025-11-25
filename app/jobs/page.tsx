@@ -1,5 +1,8 @@
 // app/page.tsx
 import Link from 'next/link';
+// NOTE: We will update this file to use the HomeFeaturedJobs client component 
+// to include Local Storage jobs, but for now, we'll use the original mockJobs 
+// import as requested by the provided code block.
 import { JobCard } from '@/app/components/JobCard';
 import { mockJobs } from '@/app/data/jobs';
 
@@ -64,14 +67,8 @@ export default function HomePage() {
 
             {/* --- */}
 
-            {/* 3. Footer Placeholder */}
-            <footer className="bg-gray-800 text-white py-10 mt-12">
-                <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-                    <p className="text-sm text-gray-400">
-                        &copy; {new Date().getFullYear()} Sui Gigs DApp MVP. Built with Next.js and Tailwind CSS.
-                    </p>
-                </div>
-            </footer>
+
+
         </div>
     );
 }
