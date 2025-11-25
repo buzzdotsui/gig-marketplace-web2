@@ -1,92 +1,96 @@
-// app/components/Footer.tsx
-import Link from 'next/link';
+// app/components/ClientActions.tsx
+'use client';
 
-export const Footer = () => {
-    // Footer Link structure for easy mapping
-    const quickLinks = [
-        { name: 'Browse Gigs', href: '/jobs' },
-        { name: 'Post a Job', href: '/post-job' },
-        { name: 'Home', href: '/' },
-        // Placeholder for a detailed 'Feedback' page (MVP link)
-        { name: 'Feedback', href: '#' },
-    ];
+import React, { useState } from 'react';
+
+// NOTE: This component is a placeholder for the future Sui interaction. 
+// It currently uses mock logic and state.
+
+interface ClientActionsProps {
+    jobId: string;
+    isFundsLocked: boolean; // Simulates the state of the escrow
+    freelancerAddress: string;
+    clientAddress: string;
+}
+
+export const ClientActions: React.FC<ClientActionsProps> = ({
+    jobId,
+    isFundsLocked,
+    freelancerAddress
+}) => {
+    // Mock state for transaction loading
+    const [isLoading, setIsLoading] = useState(false);
+    const [releaseStatus, setReleaseStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+    // MOCK Function for releasing funds (Future Sui transaction)
+    const handleReleaseFunds = () => {
+        if (!isFundsLocked) {
+            alert('Error: Funds are already released or not locked.');
+            return;
+        }
+
+        // --- Start Mock Transaction Simulation ---
+        setIsLoading(true);
+        setReleaseStatus('idle');
+
+        setTimeout(() => {
+            // Simulate a successful Sui transaction
+            console.log(`Simulating release_funds for Job: ${jobId} to Freelancer: ${freelancerAddress}`);
+
+            setIsLoading(false);
+            setReleaseStatus('success');
+
+            // In the real dApp, you'd call the useSignAndExecuteTransaction hook here.
+
+        }, 2000);
+        // --- End Mock Transaction Simulation ---
+    };
+
+    if (releaseStatus === 'success') {
+        return (
+            <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-md mt-6">
+                <p className="font-bold">Payment Complete!</p>
+                <p className="text-sm">The funds have been successfully released to the freelancer. The escrow is closed.</p>
+            </div>
+        );
+    }
 
     return (
-        <footer className="bg-gray-800 text-white border-t border-indigo-700 mt-12">
-            <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="border border-gray-200 p-6 rounded-xl shadow-lg mt-6 bg-white">
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Client Escrow Actions</h3>
 
-                    {/* Column 1: App Name & Social */}
-                    <div>
-                        <h3 className="text-xl font-bold text-indigo-400 mb-4">Sui Gigs DApp</h3>
-                        <p className="text-gray-400 text-sm mb-4">
-                            The decentralized marketplace for Sui blockchain gigs.
-                        </p>
+            <p className="text-gray-600 mb-4">
+                This action confirms the work is complete and triggers the **on-chain payment** to the freelancer.
+            </p>
 
-                        {/* Social Link (X/Twitter) */}
-                        <a
-                            href="https://x.com/SuiMicroGig?s=20"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-indigo-400 transition-colors flex items-center space-x-2"
-                        >
-                            {/* Simple X/Twitter icon placeholder */}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.791-1.574 2.164-2.722-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.593 0-6.471 2.946-6.471 6.57 0 .513.056 1.01.17 1.48C6.671 8.528 3.5 6.845 1.465 4.119.988 4.908.72 5.795.72 6.745c0 2.275 1.159 4.265 2.91 5.422-.486-.02-.94-.14-1.341-.377v.081c0 3.181 2.257 5.792 5.242 6.398-.553.151-1.134.232-1.737.232-.42 0-.822-.041-1.222-.119.834 2.585 3.291 4.475 6.183 4.536-2.204 1.764-4.99 2.824-8.03 2.824-.53 0-1.047-.033-1.564-.084C2.9 22.181 5.862 23.36 9.172 23.36c8.532 0 13.155-7.271 13.155-13.88v-.577c.905-.658 1.688-1.523 2.316-2.529z" />
+            {isFundsLocked ? (
+                <button
+                    onClick={handleReleaseFunds}
+                    disabled={isLoading}
+                    className="w-full py-3 px-4 border border-transparent rounded-lg shadow-md text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 transition duration-150 flex items-center justify-center"
+                >
+                    {isLoading ? (
+                        <>
+                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
-                            <span>@SuiMicroGig</span>
-                        </a>
-                    </div>
-
-                    {/* Column 2: Quick Links */}
-                    <div>
-                        <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
-                        <ul className="space-y-3">
-                            {quickLinks.map((item) => (
-                                <li key={item.name}>
-                                    <Link href={item.href} className="text-gray-400 hover:text-indigo-400 transition-colors text-sm">
-                                        {item.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Column 3: Contact/Legal Placeholder */}
-                    <div>
-                        <h3 className="text-lg font-semibold text-white mb-4">Support</h3>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link href="#" className="text-gray-400 hover:text-indigo-400 transition-colors text-sm">
-                                    Dispute Resolution
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#" className="text-gray-400 hover:text-indigo-400 transition-colors text-sm">
-                                    Terms of Service
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#" className="text-gray-400 hover:text-indigo-400 transition-colors text-sm">
-                                    Privacy Policy
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Column 4: Credits and Attribution */}
-                    <div className="md:col-span-1 col-span-2">
-                        <h3 className="text-lg font-semibold text-white mb-4">Attribution</h3>
-                        <p className="text-gray-400 text-sm">
-                            Built and maintained by **Testy Tech Inc.** under the leadership of **Testimony Owolabi**.
-                        </p>
-                        <p className="text-gray-500 text-xs mt-4">
-                            &copy; {new Date().getFullYear()} Sui Gigs DApp MVP. All rights reserved.
-                        </p>
-                    </div>
-
+                            Releasing Funds...
+                        </>
+                    ) : (
+                        `Release Funds: $1200 USD` // Budget amount placeholder
+                    )}
+                </button>
+            ) : (
+                <div className="text-center py-3 text-gray-500 bg-gray-100 border border-gray-300 rounded-lg">
+                    Funds already released or gig is not active.
                 </div>
-            </div>
-        </footer>
+            )}
+
+            {/* Placeholder for future wallet/address check */}
+            <p className="text-xs text-gray-500 mt-4">
+                *Must be signed by the **original client address** to execute.
+            </p>
+        </div>
     );
 };
