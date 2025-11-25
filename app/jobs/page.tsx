@@ -15,7 +15,7 @@ export default function HomePage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
                     <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight">
-                        The **Decentralized** Freelance Platform
+                        The Decentralized Freelance Platform
                     </h1>
                     <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
                         Find or post your next gig on the Sui blockchain. Secure escrow, fast transactions, and community governance.
